@@ -147,3 +147,41 @@ UIS.InputBegan:Connect(function(input, gpe)
 		spawnAetheron()
 	end
 end)
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local function createTag(character)
+	local head = character:WaitForChild("Head")
+
+	local billboard = Instance.new("BillboardGui")
+	billboard.Name = "DevTag"
+	billboard.Parent = head
+	billboard.Adornee = head
+	billboard.Size = UDim2.new(10, 0, 2.5, 0)
+	billboard.StudsOffset = Vector3.new(0, 3.5, 0) 
+	billboard.AlwaysOnTop = true
+	billboard.LightInfluence = 0 
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Parent = billboard
+	textLabel.BackgroundTransparency = 1
+	textLabel.Size = UDim2.new(1, 0, 1, 0)
+	textLabel.Text = "Разработчик"
+	textLabel.TextColor3 = Color3.fromRGB(0, 200, 255)
+	textLabel.Font = Enum.Font.GothamBold
+	textLabel.TextScaled = true
+	
+	local uiStroke = Instance.new("UIStroke")
+	uiStroke.Parent = textLabel
+	uiStroke.Thickness = 3
+	uiStroke.Color = Color3.fromRGB(0, 80, 180)
+	uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+end
+
+if player.Character then
+	createTag(player.Character)
+end
+
+player.CharacterAdded:Connect(function(char)
+	createTag(char)
+end)
