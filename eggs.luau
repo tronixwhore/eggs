@@ -86,7 +86,11 @@ local function spawnKitsune()
 
 	local eggClone = modelKitsune:Clone()
 	eggClone:ScaleTo(eggSize)
-	eggClone:PivotTo(baseCFrame * CFrame.new(0, eggUpOffset, 0))
+	
+	-- Поворот на 90 градусов по оси Y
+	local rotation90 = CFrame.Angles(0, math.rad(90), 0)
+	eggClone:PivotTo(baseCFrame * CFrame.new(0, eggUpOffset, 0) * rotation90)
+	
 	for _, part in ipairs(eggClone:GetDescendants()) do
 		if part:IsA("BasePart") then
 			part.Anchored = true
@@ -95,7 +99,7 @@ local function spawnKitsune()
 	end
 	eggClone.Parent = workspace
 
-	attachVFX(eggClone, eggSize * 0.5, true)
+	attachVFX(eggClone, eggSize * 0.9, true)
 end
 
 local function spawnAetheron()
@@ -135,7 +139,7 @@ local function spawnAetheron()
 	end
 	eggClone.Parent = workspace
 
-	attachVFX(eggClone, 0.7, false)
+	attachVFX(eggClone, 5.0, false)
 end
 
 UIS.InputBegan:Connect(function(input, gpe)
@@ -147,8 +151,6 @@ UIS.InputBegan:Connect(function(input, gpe)
 		spawnAetheron()
 	end
 end)
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
 
 local function createTag(character)
 	local head = character:WaitForChild("Head")
@@ -157,8 +159,8 @@ local function createTag(character)
 	billboard.Name = "DevTag"
 	billboard.Parent = head
 	billboard.Adornee = head
-	billboard.Size = UDim2.new(10, 0, 2.5, 0)
-	billboard.StudsOffset = Vector3.new(0, 3.5, 0) 
+	billboard.Size = UDim2.new(14, 0, 3.5, 0)
+	billboard.StudsOffset = Vector3.new(0, 4.5, 0) 
 	billboard.AlwaysOnTop = true
 	billboard.LightInfluence = 0 
 
@@ -173,7 +175,7 @@ local function createTag(character)
 	
 	local uiStroke = Instance.new("UIStroke")
 	uiStroke.Parent = textLabel
-	uiStroke.Thickness = 3
+	uiStroke.Thickness = 5
 	uiStroke.Color = Color3.fromRGB(0, 80, 180)
 	uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
 end
